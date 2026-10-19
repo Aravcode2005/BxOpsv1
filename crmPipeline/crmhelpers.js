@@ -16,9 +16,13 @@ else if(data){
 console.log(`Yooooo we got a reponse ${JSON.stringify(data)}`);
 const key=crypto.randomUUID();
 const encryptedKey=await bcrypt.hash(key,12);
+
 if(encryptedKey){
-return encryptedKey;
-  }
+  return {
+    crmKey: encryptedKey,
+    leadStatus: data.lead_status || null
+  };
+}
  }
 }
 module.exports={injectToCrm};
