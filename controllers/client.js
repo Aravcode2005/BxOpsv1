@@ -16,17 +16,21 @@ return res.status(500).json({
   })
 }
 const finalClient=validatecreateClient(client);
-const crmKey=await injectToCrm(finalClient);
-if(crmKey===""){
-return res.status(500).json({
-'message':'We are so sorry!Trying to fix the error',
-  })
+const crmResult=await injectToCrm(finalClient);
+
+if(!crmResult || !crmResult.crmKey){
+  return res.status(500).json({
+    "message":"We are so sorry!Trying to fix the error",
+  });
 }
+
+const {crmKey, leadStatus}=crmResult;
 console.log(`Yoo we got the key ${crmKey}`);
 console.log(`Jus saving to the db now`);
 const clientEntry=await clientModel.create({
 "name":finalClient.name,
 "crmKey":crmKey,
+"leadStatus":leadStatus,
 "email":finalClient.email,
 "company":finalClient.company,
 "service":finalClient.service,
@@ -44,8 +48,9 @@ return res.status(500).json({
 else if(clientEntry){
 console.log(`User Successfully registered!`);
 return res.status(201).json({
-'message':`Success`,
-  })
+  "message":"Success",
+  "lead_status":leadStatus
+})
  }
 }
 	
