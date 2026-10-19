@@ -22,8 +22,8 @@ const email=normalize(client.email);
 const phone=normalize(client.phone);
 const company=normalize(client.company);
 const service=normalize(client.service);
-const budget=normalize(client.budget);
-const urgency=normalize(client.urgency);
+const budget=Number(client.budget);
+const urgency=String(client.urgency).trim().toLowerCase();
 
 const processedRequest={
 "name":name,
