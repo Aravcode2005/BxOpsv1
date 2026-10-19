@@ -1,0 +1,76 @@
+services:
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: businessOpsv1
+    ports:
+      - "8500:9000"
+    env_file:
+      - .env
+    environment:
+      MONGODB_URI: mongodb://mongo:27017/mydb
+      REDIS_URI: redis://redis:6379/
+      POSTGRES_URI: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      mongo:
+        condition: service_started
+      redis:
+        condition: service_started
+    networks:
+      - businessOpsExt
+    restart: unless-stopped
+
+  mongo:
+    image: mongo:7
+    container_name: businessOpsNoSql
+    ports:
+      - "127.0.0.1:30000:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - businessOpsExt
+    restart: unless-stopped
+
+  redis:
+    image: redis:7
+    container_name: businessOpsCache
+    ports:
+      - "127.0.0.1:6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - businessOpsExt
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:16
+    container_name: businessOpsSql
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - businessOpsExt
+    restart: unless-stopped
+
+networks:
+  businessOpsExt:
+    external: true
+
+volumes:
+  mongo-data:
+  redis-data:
+  postgres-data:

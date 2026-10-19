@@ -1,0 +1,31 @@
+{
+  "name": "businessiopsserver",
+  "version": "1.0.0",
+  "description": "This is the backend for the businessops application",
+  "homepage": "https://github.com/Aravcode2005/businessOps#readme",
+  "bugs": {
+    "url": "https://github.com/Aravcode2005/businessOps/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aravcode2005/businessOps.git"
+  },
+  "license": "MIT",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "crypto": "^1.0.1",
+    "dotenv": "^18.0.8",
+    "express": "^5.3.0",
+    "http": "^0.0.1-security",
+    "mongoose": "^9.11.2",
+    "nodemon": "^3.1.14",
+    "router": "^2.2.0"
+  }
+}
