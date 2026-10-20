@@ -10,28 +10,31 @@ exports.createClient = async (req, res, next) => {
   const client = req.body;
   console.log(`${JSON.stringify(client)}`);
 
-  if (!client.name || !client.email || !client.phone || !client.company || !client.service || !client.budget || !client.urgency) {
+  if (!client.name ||!client.city || !client.email || !client.phone || !client.company || !client.service || !client.budget || !client.urgency) {
     return res.status(400).json({
       message: 'Incomplete Client Information,please fill in all the details',
     });
   }
-
   let finalClient;
   try {
     finalClient = validatecreateClient(client);
+    if(finalClient==="-1"){
+       return res.status(403).json({
+         "message":"Invalid input"
+       })
+    }
   } catch (error) {
     console.error(error);
     return res.status(400).json({ "User saved": "No" });
   }
- const crmKey=await injectToCrm(finalClient);
-
+const crmKey=await injectToCrm(finalClient);
 if(crmKey!=="-1"){
 console.log(`yoo we got the key ${crmKey}`);
 try{
-
 const info={
  name: finalClient.name,
  crmKey: crmKey,
+ city: finalClient.city,
  email: finalClient.email,
  company: finalClient.company,
  service: finalClient.service,
@@ -39,12 +42,6 @@ const info={
  urgency: finalClient.urgency,
  phone: finalClient.phone,
     }
-
-
-
-
-
-
 const saveProfile=await clientModel.create(info);
  if(saveProfile){
   console.log(`Saved ${saveProfile}`);
