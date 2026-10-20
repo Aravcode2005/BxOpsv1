@@ -9,7 +9,10 @@ crmKey:{
         type: String,
         required: true
        },
-
+leadStatus:{
+    type: String,
+    required: true
+       },
 email:{
         type: String,
         required: true
@@ -23,8 +26,8 @@ service:{
         required: true
         },
 budget: {
-        type: String,
-        required: true
+    type: Number,
+    required: true
         },
 urgency: {
         type: String,
