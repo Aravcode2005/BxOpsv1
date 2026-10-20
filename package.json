@@ -1,16 +1,9 @@
 {
-  "name": "businessiopsserver",
+  "name": "bopsv1",
   "version": "1.0.0",
-  "description": "This is the backend for the businessops application",
-  "homepage": "https://github.com/Aravcode2005/businessOps#readme",
-  "bugs": {
-    "url": "https://github.com/Aravcode2005/businessOps/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Aravcode2005/businessOps.git"
-  },
+  "description": "This is the backend for the bops",
   "license": "MIT",
+  "author": "Arav",
   "type": "commonjs",
   "main": "server.js",
   "scripts": {
@@ -19,13 +12,20 @@
     "start": "node server.js"
   },
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "bcryptjs": "^3.0.3",
+    "body-parser": "^2.3.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
     "crypto": "^1.0.1",
     "dotenv": "^18.0.8",
+    "ejs": "^7.0.2",
     "express": "^5.3.0",
-    "http": "^0.0.1-security",
+    "express-rate-limit": "^8.7.1",
+    "express-session": "^1.19.0",
     "mongoose": "^9.11.2",
-    "nodemon": "^3.1.14",
-    "router": "^2.2.0"
+    "node": "^26.12.0",
+    "nodemon": "^1.14.10",
+    "path": "^0.12.7"
   }
 }

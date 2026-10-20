@@ -1,5 +1,4 @@
 services:
-
   app:
     build:
       context: .
@@ -10,31 +9,17 @@ services:
     env_file:
       - .env
     environment:
-      MONGODB_URI: mongodb://mongo:27017/mydb
+      MONGODB_URI: ${MONGODB_URI}
       REDIS_URI: redis://redis:6379/
       POSTGRES_URI: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
     depends_on:
       postgres:
         condition: service_healthy
-      mongo:
-        condition: service_started
       redis:
         condition: service_started
     networks:
       - businessOpsExt
     restart: unless-stopped
-
-  mongo:
-    image: mongo:7
-    container_name: businessOpsNoSql
-    ports:
-      - "127.0.0.1:30000:27017"
-    volumes:
-      - mongo-data:/data/db
-    networks:
-      - businessOpsExt
-    restart: unless-stopped
-
   redis:
     image: redis:7
     container_name: businessOpsCache
@@ -71,6 +56,5 @@ networks:
     external: true
 
 volumes:
-  mongo-data:
   redis-data:
   postgres-data:
