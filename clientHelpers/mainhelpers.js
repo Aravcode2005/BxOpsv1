@@ -33,9 +33,9 @@ else if(!isValidEmail(client.email)){
 }
 const phone=normalize(client.phone);
 const company=normalize(client.company);
-const service=normalize(client.service);
-const budget=normalize(client.budget);
-const urgency=normalize(client.urgency);
+const service=(client.service).toLowerCase();
+const budget=client.budget;
+const urgency=(client.urgency).toLowerCase();
 const processedRequest={
 "name":name,
 "city":city,

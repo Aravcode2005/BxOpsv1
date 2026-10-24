@@ -1,11 +1,31 @@
 const {validatecreateClient}=require('../clientHelpers/mainhelpers.js');
 const {clientModel}=require('../models/userCreationModel.js');
 const {injectToCrm}=require('../crmPipeline/crmhelpers.js');
-exports.getClient=(req,res,next)=>{
+
+
+exports.healthCheck=(req,res,next)=>{
 return res.status(200).json({
+"message":"We are up and running"
+ })
+}
+
+
+
+exports.homePage=(req,res,next)=>{
+return res.status(200).json({
+"message":"We are ready to serve"
+ })
+}
+
+
+
+exports.getClient=(req,res,next)=>{
+return res.status(200).json({   
   "message":"We are up and running"
  })
 }
+
+
 exports.createClient = async (req, res, next) => {
   const client = req.body;
   console.log(`${JSON.stringify(client)}`);
