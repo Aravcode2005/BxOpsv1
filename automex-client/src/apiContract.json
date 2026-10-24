@@ -1,0 +1,10 @@
+{
+
+"endpoints":{
+"healthCheck":"/businessOps",
+"homePage":"/",
+"getcreateClient":"businessOps/clientServerSignup",
+"createClient":"/businessOps/createClient"
+  }
+
+}
