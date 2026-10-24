@@ -1,0 +1,12 @@
+services:  
+      automex-client:
+        context:
+           build .
+           dockerfile:Dockerfile
+        ports:
+          -p "7000:5173"
+        container: automex-client
+        env_file:
+          .env
+        restart: unless-stopped  
+   

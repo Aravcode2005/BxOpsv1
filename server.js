@@ -28,11 +28,6 @@ app.use(limiter);
 app.use(express.json());
 app.use(clientRoutes);
 const connectDB=require('./utils/database.js');
-app.get('/businessOps',(req,res,next)=>{
-  return res.render('serverPage',{
-      brand:"Automex"
-  });
-})
 connectDB.then(()=>{
    server.listen(PORT,()=>{
     console.log(`Local development url http://localhost:${PORT}`);
