@@ -1,12 +1,14 @@
 services:  
       automex-client:
-        context:
-           build .
-           dockerfile:Dockerfile
-        ports:
-          -p "7000:5173"
-        container: automex-client
+        build:
+           context: .
+           dockerfile: Dockerfile
+           args:
+             VITE_API_URL: ${VITE_API_URL:- https://api.mystshin.in}
         env_file:
-          .env
+           .env
+        ports:
+          - "7000:80"
+        container_name: automex-client
         restart: unless-stopped  
    
